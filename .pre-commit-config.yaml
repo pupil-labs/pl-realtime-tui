@@ -22,4 +22,3 @@ repos:
     hooks:
       - id: prettier
         types_or: [css, javascript, json, markdown, yaml, graphql]
-

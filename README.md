@@ -8,7 +8,6 @@
 [![pypi version](https://img.shields.io/pypi/v/pupil-labs-deck.svg)](https://pypi.org/project/pupil-labs-deck/)
 [![python version](https://img.shields.io/pypi/pyversions/pupil-labs-deck)](https://pypi.org/project/pupil-labs-deck/)
 
-
 A TUI to monitor, control and send synchronized events to multiple eye-trackers.
 
 ## Installation

@@ -2,6 +2,7 @@
 
 A TUI to monitor, control and send synchronized events to multiple eye-trackers.
 """
+
 from __future__ import annotations
 
 import importlib.metadata
