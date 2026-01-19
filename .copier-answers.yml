@@ -1,0 +1,18 @@
+# Changes here will be overwritten by Copier
+_commit: 9ece441
+_src_path: git@github.com:pupil-labs/pl-template
+author_email: info@pupil-labs.com
+author_fullname: Pupil Labs GmbH
+author_username: pupil-labs
+copyright_license: Proprietary
+debug_module: false
+project_description: A TUI to monitor, control and send synchronized events to multiple
+    eye-trackers.
+project_name: pl-deck
+publish_to_pypi: true
+python_package_distribution_name: pupil-labs-deck
+python_package_import_name: pl_deck
+repository_name: pl-deck
+repository_namespace: pupil-labs
+repository_provider: github.com
+
