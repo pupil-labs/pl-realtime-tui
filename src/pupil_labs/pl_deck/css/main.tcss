@@ -1,0 +1,94 @@
+Screen {
+    layout: vertical;
+}
+
+#devices_table {
+    height: 1fr;
+    width: 100%;
+}
+
+#controls {
+    height: 1fr;
+}
+
+#events_panel {
+    width: 40;
+    height: 100%;
+    padding: 1;
+    border: round $primary;
+}
+
+#log_and_edit {
+    layout: vertical;
+    width: 1fr;
+    height: 100%;
+}
+
+#event_log {
+    height: 1fr;
+    background: $surface;
+    scrollbar-gutter: stable;
+}
+
+#selected_device_panel {
+    height: auto;
+    border: round $primary;
+    padding: 0 1;
+    margin-top: 1;
+    display: none;
+}
+
+#selected_device_buttons {
+    layout: horizontal;
+}
+
+#selected_device_buttons Button {
+    width: 1fr;
+}
+
+#edit_container {
+    height: auto;
+    border: round $accent;
+    padding: 0 1;
+    margin-top: 1;
+    display: none;
+}
+
+#edit_inputs {
+    layout: horizontal;
+}
+
+#edit_key {
+    width: 10;
+}
+
+#edit_name {
+    width: 1fr;
+}
+
+#edit_save {
+    width: 100%;
+}
+
+ToastRack {
+    align: right top;
+}
+
+/* Loading Indicator Styling */
+#loading_container {
+    height: auto;
+    width: 100%;
+    align: center middle;
+    display: none;
+    /* Hidden by default */
+    padding: 1;
+}
+
+.loading #loading_container {
+    display: block;
+}
+
+#loading_label {
+    margin-left: 2;
+    text-style: bold;
+}

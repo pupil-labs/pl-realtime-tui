@@ -57,9 +57,9 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/pupil-labs-deck
+      url: https://pypi.org/p/pl-deck
     permissions:
-      id-token: write # IMPORTANT: mandatory for trusted publishing
+      id-token: write
     steps:
       - name: Download all the dists
         uses: actions/download-artifact@v4

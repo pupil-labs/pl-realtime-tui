@@ -1,0 +1,15 @@
+TimeSyncModal { align: center middle; }
+    #dialog {
+        grid-size: 2;
+        grid-gutter: 1 2;
+        grid-rows: auto auto auto;
+        padding: 0 1;
+        width: 60;
+        height: auto;
+        border: thick $background 80%;
+        background: $surface;
+    }
+    #question { column-span: 2; content-align: center middle; }
+    #sync_interval_input { column-span: 2; }
+    #status_interval_input { column-span: 2; }
+    Button { width: 100%; }

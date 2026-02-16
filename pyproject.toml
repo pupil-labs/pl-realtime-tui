@@ -1,5 +1,5 @@
 [project]
-name = "pupil-labs-deck"
+name = "pl-deck"
 description = "A TUI to monitor, control and send synchronized events to multiple eye-trackers."
 authors = [{ name = "Pupil Labs GmbH", email = "info@pupil-labs.com" }]
 license = { text = "Proprietary" }
@@ -18,7 +18,20 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 
-dependencies = ["numpy"]
+dependencies = [
+    "aiohttp[speedups]>=3.13.3",
+    "numpy",
+    "opencv-python",
+    "platformdirs>=4.3.6",
+    "pupil-labs-neon-recording>=2.0.0",
+    "pupil-labs-realtime-api>=1.7.3",
+    "pupil-labs-video",
+    "rich>=13.9.4",
+    "scapy>=2.7.0",
+    "textual>=7.3.0",
+    "tqdm",
+    "typer>=0.21.1",
+]
 
 [project.optional-dependencies]
 examples = [
@@ -37,6 +50,9 @@ Issues = "https://github.com/pupil-labs/pl-deck/issues"
 [build-system]
 requires = ["hatchling", "uv-dynamic-versioning"]
 build-backend = "hatchling.build"
+
+[project.scripts]
+pl-deck = "pupil_labs.pl_deck.cli:main"
 
 [dependency-groups]
 dev = [

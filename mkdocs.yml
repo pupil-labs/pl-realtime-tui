@@ -141,7 +141,7 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/pupil-labs
     - icon: fontawesome/brands/python
-      link: https://pypi.org/project/pupil-labs-deck/
+      link: https://pypi.org/project/pl-deck/
     - icon: fontawesome/brands/discord
       link: https://pupil-labs.com/chat
     - icon: logomark
