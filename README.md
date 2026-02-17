@@ -8,7 +8,7 @@
 [![pypi version](https://img.shields.io/pypi/v/pl-deck.svg)](https://pypi.org/project/pl-deck/)
 [![python version](https://img.shields.io/pypi/pyversions/pl-deck)](https://pypi.org/project/pl-deck/)
 
-[![pl-deck banner](https://raw.githubusercontent.com/pupil-labs/neon-player-beta/refs/heads/main/docs/assets/banner.png)](https://pupil-labs.com/https://docs.pupil-labs.com/alpha-lab/)
+[![pl-deck banner](https://raw.githubusercontent.com/pupil-labs/pl-deck/refs/heads/main/docs/assets/banner.png)](https://pupil-labs.com/https://docs.pupil-labs.com/alpha-lab/)
 
 A TUI to monitor, control and send synchronized events to multiple eye-trackers.
 
