@@ -8,6 +8,8 @@
 [![pypi version](https://img.shields.io/pypi/v/pl-deck.svg)](https://pypi.org/project/pl-deck/)
 [![python version](https://img.shields.io/pypi/pyversions/pl-deck)](https://pypi.org/project/pl-deck/)
 
+[![pl-deck banner](https://raw.githubusercontent.com/pupil-labs/neon-player-beta/refs/heads/main/docs/assets/banner.png)](https://pupil-labs.com/https://docs.pupil-labs.com/alpha-lab/)
+
 A TUI to monitor, control and send synchronized events to multiple eye-trackers.
 
 `pl-deck` is a Python-based Text User Interface (TUI) application designed to monitor, control, and send synchronized events to multiple Pupil Labs eye-trackers (Neon/Pupil Invisible). It leverages the `pupil-labs-realtime-api` for low-latency communication with devices and `textual` for a responsive terminal-based dashboard.
@@ -20,19 +22,21 @@ See the accompanying [Alpha Lab article]() for more details and example use case
 pip install pl-deck
 ```
 
-or
+## Run It
+
+if you have [Astral's UV](https://github.com/astral-sh/uv) installed. You can run it directly with:
 
 ```bash
 uvx pl-deck
 ```
 
-if you have `[uv](https://github.com/astral-sh/uv)` installed. If you want to run more than one time, you may want to install it as a tool.
+If you want to run more than one time, you may want to install it as a tool.
 
 ```bash
 uv tool install pl-deck
 ```
 
-From there, you would be able to run it with just `pl-deck` if your environment is set up correctly.
+From there, you would be able to invoke it with just `pl-deck` from anywhere in the terminal.
 
 ## Key Features
 
