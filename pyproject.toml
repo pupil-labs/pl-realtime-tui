@@ -1,8 +1,8 @@
 [project]
-name = "pl-deck"
+name = "pupil-labs-deck"
 description = "A TUI to monitor, control and send synchronized events to multiple eye-trackers."
 authors = [{ name = "Pupil Labs GmbH", email = "info@pupil-labs.com" }]
-license = { text = "Proprietary" }
+license = { text = "MIT" }
 readme = "README.md"
 requires-python = ">=3.10, <4.0"
 keywords = []
@@ -16,6 +16,7 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Topic :: Software Development :: Libraries :: Python Modules",
+    "License :: OSI Approved :: MIT License",
 ]
 
 dependencies = [
@@ -52,7 +53,7 @@ requires = ["hatchling", "uv-dynamic-versioning"]
 build-backend = "hatchling.build"
 
 [project.scripts]
-pl-deck = "pupil_labs.pl_deck.cli:main"
+pl-deck = "pupil_labs.deck.cli:main"
 
 [dependency-groups]
 dev = [

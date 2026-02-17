@@ -2099,88 +2099,6 @@ wheels = [
 ]
 
 [[package]]
-name = "pl-deck"
-source = { editable = "." }
-dependencies = [
-    { name = "aiohttp", extra = ["speedups"] },
-    { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
-    { name = "numpy", version = "2.4.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
-    { name = "opencv-python" },
-    { name = "platformdirs" },
-    { name = "pupil-labs-neon-recording" },
-    { name = "pupil-labs-realtime-api" },
-    { name = "pupil-labs-video" },
-    { name = "rich" },
-    { name = "scapy" },
-    { name = "textual" },
-    { name = "tqdm" },
-    { name = "typer" },
-]
-
-[package.dev-dependencies]
-dev = [
-    { name = "deptry" },
-    { name = "markdown-callouts" },
-    { name = "markdown-exec" },
-    { name = "mike" },
-    { name = "mkdocs" },
-    { name = "mkdocs-coverage" },
-    { name = "mkdocs-gen-files" },
-    { name = "mkdocs-git-revision-date-localized-plugin" },
-    { name = "mkdocs-literate-nav" },
-    { name = "mkdocs-material" },
-    { name = "mkdocs-minify-plugin" },
-    { name = "mkdocstrings", extra = ["python"] },
-    { name = "mypy" },
-    { name = "opencv-stubs" },
-    { name = "pre-commit" },
-    { name = "pytest" },
-    { name = "pytest-cov" },
-    { name = "tomli", marker = "python_full_version < '3.11'" },
-    { name = "tox-uv" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "aiohttp", extras = ["speedups"], specifier = ">=3.13.3" },
-    { name = "numpy" },
-    { name = "opencv-python" },
-    { name = "platformdirs", specifier = ">=4.3.6" },
-    { name = "pupil-labs-neon-recording", specifier = ">=2.0.0" },
-    { name = "pupil-labs-realtime-api", specifier = ">=1.7.3" },
-    { name = "pupil-labs-video" },
-    { name = "rich", specifier = ">=13.9.4" },
-    { name = "scapy", specifier = ">=2.7.0" },
-    { name = "textual", specifier = ">=7.3.0" },
-    { name = "tqdm" },
-    { name = "typer", specifier = ">=0.21.1" },
-]
-provides-extras = ["examples"]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "deptry", specifier = ">=0.20.0" },
-    { name = "markdown-callouts", specifier = ">=0.4" },
-    { name = "markdown-exec", specifier = ">=1.8" },
-    { name = "mike" },
-    { name = "mkdocs", specifier = ">=1.6" },
-    { name = "mkdocs-coverage", specifier = ">=1.0" },
-    { name = "mkdocs-gen-files", specifier = ">=0.5" },
-    { name = "mkdocs-git-revision-date-localized-plugin", specifier = ">=1.2" },
-    { name = "mkdocs-literate-nav", specifier = ">=0.6" },
-    { name = "mkdocs-material", specifier = ">=9.5" },
-    { name = "mkdocs-minify-plugin", specifier = ">=0.8" },
-    { name = "mkdocstrings", extras = ["python"], specifier = ">=0.25" },
-    { name = "mypy", specifier = ">=0.991" },
-    { name = "opencv-stubs" },
-    { name = "pre-commit", specifier = ">=2.20.0" },
-    { name = "pytest", specifier = ">=8.2" },
-    { name = "pytest-cov", specifier = ">=4.0.0" },
-    { name = "tomli", marker = "python_full_version < '3.11'", specifier = ">=2.0" },
-    { name = "tox-uv", specifier = ">=1.11.3" },
-]
-
-[[package]]
 name = "platformdirs"
 version = "4.5.1"
 source = { registry = "https://pypi.org/simple" }
@@ -2341,6 +2259,88 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/92/1c/e53078d3f7fe710572ab2dcffd993e1e3b438ae71cfc031b71bae44fcb2d/protobuf-6.33.4-cp39-abi3-manylinux2014_s390x.whl", hash = "sha256:c7c64f259c618f0bef7bee042075e390debbf9682334be2b67408ec7c1c09ee6", size = 339256, upload-time = "2026-01-12T18:33:35.231Z" },
     { url = "https://files.pythonhosted.org/packages/e8/8e/971c0edd084914f7ee7c23aa70ba89e8903918adca179319ee94403701d5/protobuf-6.33.4-cp39-abi3-manylinux2014_x86_64.whl", hash = "sha256:3df850c2f8db9934de4cf8f9152f8dc2558f49f298f37f90c517e8e5c84c30e9", size = 323311, upload-time = "2026-01-12T18:33:36.305Z" },
     { url = "https://files.pythonhosted.org/packages/75/b1/1dc83c2c661b4c62d56cc081706ee33a4fc2835bd90f965baa2663ef7676/protobuf-6.33.4-py3-none-any.whl", hash = "sha256:1fe3730068fcf2e595816a6c34fe66eeedd37d51d0400b72fabc848811fdc1bc", size = 170532, upload-time = "2026-01-12T18:33:39.199Z" },
+]
+
+[[package]]
+name = "pupil-labs-deck"
+source = { editable = "." }
+dependencies = [
+    { name = "aiohttp", extra = ["speedups"] },
+    { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
+    { name = "numpy", version = "2.4.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+    { name = "opencv-python" },
+    { name = "platformdirs" },
+    { name = "pupil-labs-neon-recording" },
+    { name = "pupil-labs-realtime-api" },
+    { name = "pupil-labs-video" },
+    { name = "rich" },
+    { name = "scapy" },
+    { name = "textual" },
+    { name = "tqdm" },
+    { name = "typer" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "deptry" },
+    { name = "markdown-callouts" },
+    { name = "markdown-exec" },
+    { name = "mike" },
+    { name = "mkdocs" },
+    { name = "mkdocs-coverage" },
+    { name = "mkdocs-gen-files" },
+    { name = "mkdocs-git-revision-date-localized-plugin" },
+    { name = "mkdocs-literate-nav" },
+    { name = "mkdocs-material" },
+    { name = "mkdocs-minify-plugin" },
+    { name = "mkdocstrings", extra = ["python"] },
+    { name = "mypy" },
+    { name = "opencv-stubs" },
+    { name = "pre-commit" },
+    { name = "pytest" },
+    { name = "pytest-cov" },
+    { name = "tomli", marker = "python_full_version < '3.11'" },
+    { name = "tox-uv" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "aiohttp", extras = ["speedups"], specifier = ">=3.13.3" },
+    { name = "numpy" },
+    { name = "opencv-python" },
+    { name = "platformdirs", specifier = ">=4.3.6" },
+    { name = "pupil-labs-neon-recording", specifier = ">=2.0.0" },
+    { name = "pupil-labs-realtime-api", specifier = ">=1.7.3" },
+    { name = "pupil-labs-video" },
+    { name = "rich", specifier = ">=13.9.4" },
+    { name = "scapy", specifier = ">=2.7.0" },
+    { name = "textual", specifier = ">=7.3.0" },
+    { name = "tqdm" },
+    { name = "typer", specifier = ">=0.21.1" },
+]
+provides-extras = ["examples"]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "deptry", specifier = ">=0.20.0" },
+    { name = "markdown-callouts", specifier = ">=0.4" },
+    { name = "markdown-exec", specifier = ">=1.8" },
+    { name = "mike" },
+    { name = "mkdocs", specifier = ">=1.6" },
+    { name = "mkdocs-coverage", specifier = ">=1.0" },
+    { name = "mkdocs-gen-files", specifier = ">=0.5" },
+    { name = "mkdocs-git-revision-date-localized-plugin", specifier = ">=1.2" },
+    { name = "mkdocs-literate-nav", specifier = ">=0.6" },
+    { name = "mkdocs-material", specifier = ">=9.5" },
+    { name = "mkdocs-minify-plugin", specifier = ">=0.8" },
+    { name = "mkdocstrings", extras = ["python"], specifier = ">=0.25" },
+    { name = "mypy", specifier = ">=0.991" },
+    { name = "opencv-stubs" },
+    { name = "pre-commit", specifier = ">=2.20.0" },
+    { name = "pytest", specifier = ">=8.2" },
+    { name = "pytest-cov", specifier = ">=4.0.0" },
+    { name = "tomli", marker = "python_full_version < '3.11'", specifier = ">=2.0" },
+    { name = "tox-uv", specifier = ">=1.11.3" },
 ]
 
 [[package]]

@@ -1,1 +1,1 @@
-::: pupil_labs.pl_deck
+::: pupil_labs.deck

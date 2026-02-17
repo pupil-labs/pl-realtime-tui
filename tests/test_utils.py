@@ -1,6 +1,6 @@
 import math
 
-from pupil_labs.pl_deck.utils import byte_size_to_gb, get_offset_age_color
+from pupil_labs.deck.utils import byte_size_to_gb, get_offset_age_color
 
 
 def test_byte_size_to_gb():

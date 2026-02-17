@@ -4,7 +4,7 @@ site_url: "https://pupil-labs.github.io/pl-deck"
 repo_url: "https://github.com/pupil-labs/pl-deck"
 repo_name: "pupil-labs/pl-deck"
 site_dir: "site"
-watch: [mkdocs.yml, README.md, CONTRIBUTING.md, src/pupil_labs/pl_deck]
+watch: [mkdocs.yml, README.md, CONTRIBUTING.md, src/pupil_labs/deck]
 edit_uri: edit/main/docs/
 
 validation:
@@ -141,7 +141,7 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/pupil-labs
     - icon: fontawesome/brands/python
-      link: https://pypi.org/project/pl-deck/
+      link: https://pypi.org/project/pupil-labs-deck/
     - icon: fontawesome/brands/discord
       link: https://pupil-labs.com/chat
     - icon: logomark

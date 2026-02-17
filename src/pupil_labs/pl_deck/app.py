@@ -33,11 +33,11 @@ from textual.widgets import (
     Static,
 )
 
-from pupil_labs.pl_deck.classes import DeviceClass
-from pupil_labs.pl_deck.events import EVENT_MAP
-from pupil_labs.pl_deck.modals import ManualIpModal, TimeSyncModal
-from pupil_labs.pl_deck.settings import load_settings, save_settings
-from pupil_labs.pl_deck.utils import (
+from pupil_labs.deck.classes import DeviceClass
+from pupil_labs.deck.events import EVENT_MAP
+from pupil_labs.deck.modals import ManualIpModal, TimeSyncModal
+from pupil_labs.deck.settings import load_settings, save_settings
+from pupil_labs.deck.utils import (
     byte_size_to_gb,
     get_offset_age_color,
     make_battery_bar,

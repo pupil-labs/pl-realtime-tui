@@ -1,7 +1,7 @@
 import typer
 
-from pupil_labs.pl_deck.app import Pupil
-from pupil_labs.pl_deck.render import run_render
+from pupil_labs.deck.app import Pupil
+from pupil_labs.deck.render import run_render
 
 main = typer.Typer(
     help="""A TUI to monitor, control and send synchronized events to multiple

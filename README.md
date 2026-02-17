@@ -19,7 +19,7 @@ See the accompanying [Alpha Lab article]() for more details and example use case
 ## Installation
 
 ```
-pip install pl-deck
+pip install pupil-labs-deck # or pip install git+https://github.com/pupil-labs/pl-deck.git
 ```
 
 ## Run It
@@ -27,13 +27,13 @@ pip install pl-deck
 if you have [Astral's UV](https://github.com/astral-sh/uv) installed. You can run it directly with:
 
 ```bash
-uvx pl-deck
+uvx pupil-labs-deck
 ```
 
 If you want to run more than one time, you may want to install it as a tool.
 
 ```bash
-uv tool install pl-deck
+uv tool install pupil-labs-deck
 ```
 
 From there, you would be able to invoke it with just `pl-deck` from anywhere in the terminal.
@@ -62,5 +62,5 @@ From there, you would be able to invoke it with just `pl-deck` from anywhere in 
 - **Typing:** Uses static type hints throughout. `mypy` is used for verification.
 - **Asynchronous Code:** Heavily relies on `asyncio` for non-blocking I/O with multiple devices. Textual workers (`@work`) are used for long-running tasks like network discovery.
 - **Time Synchronization:** Uses `TimeOffsetEstimator` from the realtime API to calculate clock offsets between the host and eye-trackers, ensuring events are accurately timestamped in the device's clock domain.
-- **UI Styling:** Uses Textual CSS (`.tcss`). Modifications to the UI look should be done in `src/pupil_labs/pl_deck/css/main.tcss`.
+- **UI Styling:** Uses Textual CSS (`.tcss`). Modifications to the UI look should be done in `src/pupil_labs/deck/css/main.tcss`.
 - **Pre-commit:** Pre-commit hooks are configured to run linting and formatting on every commit.

@@ -1,4 +1,4 @@
-from pupil_labs.pl_deck.settings import load_settings
+from pupil_labs.deck.settings import load_settings
 
 DEFAULT_EVENT_MAP = {
     "1": "custom_event_1",

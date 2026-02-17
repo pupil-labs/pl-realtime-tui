@@ -11,8 +11,8 @@ project_description:
   eye-trackers.
 project_name: pl-deck
 publish_to_pypi: true
-python_package_distribution_name: pl-deck
-python_package_import_name: pl_deck
+python_package_distribution_name: pupil-labs-deck
+python_package_import_name: deck
 repository_name: pl-deck
 repository_namespace: pupil-labs
 repository_provider: github.com

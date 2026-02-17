@@ -1,4 +1,4 @@
-"""Tests suite for `pl_deck`."""
+"""Tests suite for `deck`."""
 
 from pathlib import Path
 
