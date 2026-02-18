@@ -69,7 +69,6 @@ class SettingsProvider(Provider):
 
 
 class Pupil(App):
-    THEME = "flexoki"
     CSS_PATH = "css/main.tcss"
     COMMANDS = App.COMMANDS | {SettingsProvider}
 
@@ -107,6 +106,7 @@ class Pupil(App):
         self.is_discovering = False
         self.sync_timer: Timer | None = None
         self.status_timer: Timer | None = None
+        self.theme = "flexoki"
 
     def compose(self) -> ComposeResult:
         yield Header(icon="◎", name="Pupil Labs Controller")
