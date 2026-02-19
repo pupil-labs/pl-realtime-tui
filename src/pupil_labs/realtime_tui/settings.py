@@ -5,7 +5,7 @@ from typing import Any
 
 from platformdirs import user_config_dir
 
-APP_NAME = "pl-deck"
+APP_NAME = "pl-realtime-tui"
 APP_AUTHOR = "pupil-labs"
 
 logger: logging.Logger = logging.getLogger(__name__)

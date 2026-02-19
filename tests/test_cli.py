@@ -1,6 +1,6 @@
 from typer.testing import CliRunner
 
-from pupil_labs.deck.cli import main
+from pupil_labs.realtime_tui.cli import main
 
 runner = CliRunner()
 

@@ -1,6 +1,6 @@
 from unittest.mock import MagicMock
 
-from pupil_labs.deck.classes import DeviceClass
+from pupil_labs.realtime_tui.classes import DeviceClass
 
 
 def test_device_class_init():

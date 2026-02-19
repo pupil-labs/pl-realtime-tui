@@ -1,5 +1,5 @@
 [project]
-name = "pupil-labs-deck"
+name = "pupil-labs-realtime-tui"
 description = "A TUI to monitor, control and send synchronized events to multiple eye-trackers."
 authors = [{ name = "Pupil Labs GmbH", email = "info@pupil-labs.com" }]
 license = { text = "MIT" }
@@ -42,10 +42,10 @@ examples = [
 ]
 
 [project.urls]
-Homepage = "https://pupil-labs.github.io/pl-deck"
-Documentation = "https://pupil-labs.github.io/pl-deck"
-Repository = "https://github.com/pupil-labs/pl-deck"
-Issues = "https://github.com/pupil-labs/pl-deck/issues"
+Homepage = "https://pupil-labs.github.io/pl-realtime-tui"
+Documentation = "https://pupil-labs.github.io/pl-realtime-tui"
+Repository = "https://github.com/pupil-labs/pl-realtime-tui"
+Issues = "https://github.com/pupil-labs/pl-realtime-tui/issues"
 
 
 [build-system]
@@ -53,7 +53,7 @@ requires = ["hatchling", "uv-dynamic-versioning"]
 build-backend = "hatchling.build"
 
 [project.scripts]
-pl-deck = "pupil_labs.deck.cli:main"
+pl-realtime-tui = "pupil_labs.realtime_tui.cli:main"
 
 [dependency-groups]
 dev = [

@@ -9,10 +9,10 @@ debug_module: false
 project_description:
   A TUI to monitor, control and send synchronized events to multiple
   eye-trackers.
-project_name: pl-deck
+project_name: pl-realtime-tui
 publish_to_pypi: true
-python_package_distribution_name: pupil-labs-deck
-python_package_import_name: deck
-repository_name: pl-deck
+python_package_distribution_name: pupil-labs-realtime-tui
+python_package_import_name: realtime_tui
+repository_name: pl-realtime-tui
 repository_namespace: pupil-labs
 repository_provider: github.com

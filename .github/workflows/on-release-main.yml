@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/pupil-labs-deck
+      url: https://pypi.org/p/pupil-labs-realtime-tui
     permissions:
       id-token: write
     steps:

@@ -1,25 +1,25 @@
-# Pupil Labs pl-deck
+# Pupil Labs pl-realtime-tui
 
-[![ci](https://github.com/pupil-labs/pl-deck/actions/workflows/main.yml/badge.svg)](https://github.com/pupil-labs/pl-deck/actions/workflows/main.yml)
-[![documentation](https://img.shields.io/badge/docs-mkdocs-708FCC.svg?style=flat)](https://pupil-labs.github.io/pl-deck/)
+[![ci](https://github.com/pupil-labs/pl-realtime-tui/actions/workflows/main.yml/badge.svg)](https://github.com/pupil-labs/pl-realtime-tui/actions/workflows/main.yml)
+[![documentation](https://img.shields.io/badge/docs-mkdocs-708FCC.svg?style=flat)](https://pupil-labs.github.io/pl-realtime-tui/)
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 [![ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![pre-commit](https://img.shields.io/badge/pre_commit-black?logo=pre-commit&logoColor=FAB041)](https://github.com/pre-commit/pre-commit)
-[![pypi version](https://img.shields.io/pypi/v/pl-deck.svg)](https://pypi.org/project/pl-deck/)
-[![python version](https://img.shields.io/pypi/pyversions/pl-deck)](https://pypi.org/project/pl-deck/)
+[![pypi version](https://img.shields.io/pypi/v/pl-realtime-tui.svg)](https://pypi.org/project/pl-realtime-tui/)
+[![python version](https://img.shields.io/pypi/pyversions/pl-realtime-tui)](https://pypi.org/project/pl-realtime-tui/)
 
-[![pl-deck banner](https://raw.githubusercontent.com/pupil-labs/pl-deck/refs/heads/main/docs/assets/banner.png)](https://pupil-labs.com/https://docs.pupil-labs.com/alpha-lab/)
+[![pl-realtime-tui banner](https://raw.githubusercontent.com/pupil-labs/pl-realtime-tui/refs/heads/main/docs/assets/banner.png)](https://pupil-labs.com/https://docs.pupil-labs.com/alpha-lab/)
 
 A TUI to monitor, control and send synchronized events to multiple eye-trackers.
 
-`pl-deck` is a Python-based Text User Interface (TUI) application designed to monitor, control, and send synchronized events to multiple Pupil Labs eye-trackers (Neon/Pupil Invisible). It leverages the `pupil-labs-realtime-api` for low-latency communication with devices and `textual` for a responsive terminal-based dashboard.
+`pl-realtime-tui` is a Python-based Text User Interface (TUI) application designed to monitor, control, and send synchronized events to multiple Pupil Labs eye-trackers (Neon/Pupil Invisible). It leverages the `pupil-labs-realtime-api` for low-latency communication with devices and `textual` for a responsive terminal-based dashboard.
 
 See the accompanying [Alpha Lab article]() for more details and example use cases.
 
 ## Installation
 
 ```
-pip install pupil-labs-deck # or pip install git+https://github.com/pupil-labs/pl-deck.git
+pip install pupil-labs-realtime-tui # or pip install git+https://github.com/pupil-labs/pl-realtime-tui.git
 ```
 
 ## Run It
@@ -27,16 +27,16 @@ pip install pupil-labs-deck # or pip install git+https://github.com/pupil-labs/p
 if you have [Astral's UV](https://github.com/astral-sh/uv) installed. You can run it directly with:
 
 ```bash
-uvx pupil-labs-deck
+uvx pupil-labs-realtime-tui
 ```
 
 If you want to run more than one time, you may want to install it as a tool.
 
 ```bash
-uv tool install pupil-labs-deck
+uv tool install pupil-labs-realtime-tui
 ```
 
-From there, you would be able to invoke it with just `pl-deck` from anywhere in the terminal.
+From there, you would be able to invoke it with just `pl-realtime-tui` from anywhere in the terminal.
 
 ## Key Features
 
@@ -62,5 +62,5 @@ From there, you would be able to invoke it with just `pl-deck` from anywhere in 
 - **Typing:** Uses static type hints throughout. `mypy` is used for verification.
 - **Asynchronous Code:** Heavily relies on `asyncio` for non-blocking I/O with multiple devices. Textual workers (`@work`) are used for long-running tasks like network discovery.
 - **Time Synchronization:** Uses `TimeOffsetEstimator` from the realtime API to calculate clock offsets between the host and eye-trackers, ensuring events are accurately timestamped in the device's clock domain.
-- **UI Styling:** Uses Textual CSS (`.tcss`). Modifications to the UI look should be done in `src/pupil_labs/deck/css/main.tcss`.
+- **UI Styling:** Uses Textual CSS (`.tcss`). Modifications to the UI look should be done in `src/pupil_labs/realtime_tui/css/main.tcss`.
 - **Pre-commit:** Pre-commit hooks are configured to run linting and formatting on every commit.

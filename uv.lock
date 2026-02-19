@@ -2262,7 +2262,7 @@ wheels = [
 ]
 
 [[package]]
-name = "pupil-labs-deck"
+name = "pupil-labs-realtime-tui"
 source = { editable = "." }
 dependencies = [
     { name = "aiohttp", extra = ["speedups"] },

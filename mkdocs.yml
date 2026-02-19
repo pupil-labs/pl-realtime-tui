@@ -1,10 +1,10 @@
-site_name: "Pupil Labs pl-deck"
+site_name: "Pupil Labs pl-realtime-tui"
 site_description: "A TUI to monitor, control and send synchronized events to multiple eye-trackers."
-site_url: "https://pupil-labs.github.io/pl-deck"
-repo_url: "https://github.com/pupil-labs/pl-deck"
-repo_name: "pupil-labs/pl-deck"
+site_url: "https://pupil-labs.github.io/pl-realtime-tui"
+repo_url: "https://github.com/pupil-labs/pl-realtime-tui"
+repo_name: "pupil-labs/pl-realtime-tui"
 site_dir: "site"
-watch: [mkdocs.yml, README.md, CONTRIBUTING.md, src/pupil_labs/deck]
+watch: [mkdocs.yml, README.md, CONTRIBUTING.md, src/pupil_labs/realtime_tui]
 edit_uri: edit/main/docs/
 
 validation:
@@ -141,7 +141,7 @@ extra:
     - icon: fontawesome/brands/github
       link: https://github.com/pupil-labs
     - icon: fontawesome/brands/python
-      link: https://pypi.org/project/pupil-labs-deck/
+      link: https://pypi.org/project/pupil-labs-realtime-tui/
     - icon: fontawesome/brands/discord
       link: https://pupil-labs.com/chat
     - icon: logomark

@@ -33,20 +33,20 @@ from textual.widgets import (
     Static,
 )
 
-from pupil_labs.deck.classes import DeviceClass
-from pupil_labs.deck.events import EVENT_MAP
-from pupil_labs.deck.modals import ManualIpModal, TimeSyncModal
-from pupil_labs.deck.settings import load_settings, save_settings
-from pupil_labs.deck.utils import (
+from pupil_labs.realtime_api import Device, StatusUpdateNotifier
+from pupil_labs.realtime_api.discovery import discover_devices
+from pupil_labs.realtime_api.models import Recording, Sensor, Status
+from pupil_labs.realtime_api.time_echo import TimeOffsetEstimator
+from pupil_labs.realtime_tui.classes import DeviceClass
+from pupil_labs.realtime_tui.events import EVENT_MAP
+from pupil_labs.realtime_tui.modals import ManualIpModal, TimeSyncModal
+from pupil_labs.realtime_tui.settings import load_settings, save_settings
+from pupil_labs.realtime_tui.utils import (
     byte_size_to_gb,
     get_offset_age_color,
     make_battery_bar,
     make_signal_bar,
 )
-from pupil_labs.realtime_api import Device, StatusUpdateNotifier
-from pupil_labs.realtime_api.discovery import discover_devices
-from pupil_labs.realtime_api.models import Recording, Sensor, Status
-from pupil_labs.realtime_api.time_echo import TimeOffsetEstimator
 
 
 class SettingsProvider(Provider):
