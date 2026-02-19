@@ -54,6 +54,7 @@ build-backend = "hatchling.build"
 
 [project.scripts]
 pl-realtime-tui = "pupil_labs.realtime_tui.cli:main"
+pl-deck = "pupil_labs.realtime_tui.cli:main"  # Legacy entry point
 
 [dependency-groups]
 dev = [
