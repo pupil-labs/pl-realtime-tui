@@ -627,9 +627,9 @@ class Pupil(App):
     @work(exclusive=False)
     async def action_start_recording(self) -> None:
         count = 0
-        for dev in self.devices_info_list:
-            if dev.is_recording or not dev.is_online:
-                continue
+
+        async def start_device(dev: DeviceClass) -> None:
+            nonlocal count
             try:
                 dev.is_recording = True
                 await dev.device.recording_start()
@@ -641,6 +641,15 @@ class Pupil(App):
                 self.log_message(f"[#$error]Fail start {dev.phone_name}: {e}[/]")
                 print(f"START ERROR: {e}")
 
+        tasks = []
+        for dev in self.devices_info_list:
+            if dev.is_recording or not dev.is_online:
+                continue
+            tasks.append(start_device(dev))
+
+        if tasks:
+            await asyncio.gather(*tasks)
+
         if count == 0:
             self.log_message("[#$warning]No eligible devices found to start.[/]")
 
@@ -649,6 +658,20 @@ class Pupil(App):
     @work(exclusive=False)
     async def action_stop_recording(self) -> None:
         stopped_count = 0
+
+        async def stop_device(dev: DeviceClass) -> None:
+            nonlocal stopped_count
+            try:
+                dev.is_recording = False
+                await dev.device.recording_stop_and_save()
+                self.log_message(f"Stopped {dev.phone_name}")
+                self.notify(f"Saved: {dev.phone_name}")
+                stopped_count += 1
+            except Exception as e:
+                self.log_message(f"[#$error]Fail stop {dev.phone_name}: {e}[/]")
+                print(f"STOP ERROR: {e}")
+
+        tasks = []
         for dev in self.devices_info_list:
             is_selected = (
                 self.selected_device_address
@@ -656,15 +679,10 @@ class Pupil(App):
             )
 
             if dev.is_recording or is_selected:
-                try:
-                    dev.is_recording = False
-                    await dev.device.recording_stop_and_save()
-                    self.log_message(f"Stopped {dev.phone_name}")
-                    self.notify(f"Saved: {dev.phone_name}")
-                    stopped_count += 1
-                except Exception as e:
-                    self.log_message(f"[#$error]Fail stop {dev.phone_name}: {e}[/]")
-                    print(f"STOP ERROR: {e}")
+                tasks.append(stop_device(dev))
+
+        if tasks:
+            await asyncio.gather(*tasks)
 
         if stopped_count == 0:
             self.log_message("[#$warning]No active recordings found to stop.[/]")
@@ -687,17 +705,34 @@ class Pupil(App):
         else:
             targets = self.devices_info_list
 
-        for dev in targets:
-            if not dev.is_recording or not dev.is_online:
-                continue
-            ts = now_ns - dev.clock_offset_ns
-
+        async def send_to_device(dev: DeviceClass, ts: int) -> None:
             dev.last_event_name = event_name
             dev.last_event_time = time.time()
             dev.last_event_pupil_ts = ts / 1e9
 
-            with contextlib.suppress(Exception):
-                await dev.device.send_event(event_name, event_timestamp_unix_ns=ts)
+            max_retries = 3
+            for attempt in range(max_retries):
+                try:
+                    await dev.device.send_event(event_name, event_timestamp_unix_ns=ts)
+                    break
+                except Exception as e:
+                    if attempt == max_retries - 1:
+                        self.log_message(
+                            f"[#$error]Failed to send event to "
+                            f"{dev.phone_name} after {max_retries} attempts: {e}[/]"
+                        )
+                    else:
+                        await asyncio.sleep(0.5)
+
+        tasks = []
+        for dev in targets:
+            if not dev.is_recording or not dev.is_online:
+                continue
+            ts = now_ns - dev.clock_offset_ns
+            tasks.append(send_to_device(dev, ts))
+
+        if tasks:
+            await asyncio.gather(*tasks)
 
     def action_toggle_edit(self) -> None:
         box = self.query_one("#edit_container")
