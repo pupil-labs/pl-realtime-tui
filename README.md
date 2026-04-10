@@ -14,7 +14,7 @@ A TUI to monitor, control and send synchronized events to multiple eye-trackers.
 
 `pl-realtime-tui` is a Python-based Text User Interface (TUI) application designed to monitor, control, and send synchronized events to multiple Pupil Labs eye-trackers (Neon/Pupil Invisible). It leverages the `pupil-labs-realtime-api` for low-latency communication with devices and `textual` for a responsive terminal-based dashboard.
 
-See the accompanying [Alpha Lab article]() for more details and example use cases.
+See the accompanying [Alpha Lab article](https://docs.pupil-labs.com/alpha-lab/a-guide-to-multiperson-eye-tracking/) for more details and example use cases.
 
 ## Installation
 
@@ -37,6 +37,13 @@ uv tool install pupil-labs-realtime-tui
 ```
 
 From there, you would be able to invoke it with just `pl-realtime-tui` from anywhere in the terminal.
+
+## Prior Work
+
+We would like to also acknowledge the following published prior work using terminal-based interfaces for eye-tracking device management, concretely with our own devices:
+
+- [Neurolive](https://pupil-labs.com/blog/neurolive-project)
+- [SocialEyes](https://pupil-labs.com/blog/socialeyes)
 
 ## Key Features
 
@@ -64,3 +71,6 @@ From there, you would be able to invoke it with just `pl-realtime-tui` from anyw
 - **Time Synchronization:** Uses `TimeOffsetEstimator` from the realtime API to calculate clock offsets between the host and eye-trackers, ensuring events are accurately timestamped in the device's clock domain.
 - **UI Styling:** Uses Textual CSS (`.tcss`). Modifications to the UI look should be done in `src/pupil_labs/realtime_tui/css/main.tcss`.
 - **Pre-commit:** Pre-commit hooks are configured to run linting and formatting on every commit.
+
+> [!IMPORTANT]
+> Old terminals (e.g. macOS Terminal.app) do not support key-hold events, which can lead to performance issues when holding down event trigger keys. We attempt to bypass it by blocking new triggers during 0.3s, but key releases may not be detected. We recommend using modern terminals like WezTerm, Ghostty, Kitty, or Alacritty for the best experience. On those terminals, we will use Kitty protocol to detect key releases and support true key-hold events.
