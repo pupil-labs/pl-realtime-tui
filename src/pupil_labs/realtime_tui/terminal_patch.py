@@ -1,14 +1,18 @@
 import re
 from collections.abc import Iterable
+from typing import Any
 
 from textual import events
 
 
-class KeyUp(events.Key):
-    pass
+class KeyUp(events.Event):
+    def __init__(self, key: str, character: str | None = None) -> None:
+        super().__init__()
+        self.key = key
+        self.character = character
 
 
-def apply_keyboard_patch() -> None:
+def apply_keyboard_patch() -> None:  # noqa: C901
     try:
         import textual._xterm_parser
         from textual._keyboard_protocol import FUNCTIONAL_KEYS
@@ -16,13 +20,13 @@ def apply_keyboard_patch() -> None:
 
         _orig_re_extended_key = textual._xterm_parser._re_extended_key
         _kitty_re_extended_key = re.compile(
-            r"\x1b\[(?:(\d+)(?:;(\d+)(?::(\d+))?)?)?([u~ABCDEFHPQRS])"
+            r"\x1b\[(?:(\d+)(?:(?:;(\d+))?(?::(\d+))?)?)?([u~ABCDEFHPQRS])"
         )
         _orig_seq_to_key = textual._xterm_parser.XTermParser._sequence_to_key_events
 
-        def _patched_seq_to_key(
-            self, sequence: str, alt: bool = False
-        ) -> Iterable[events.Key]:
+        def _patched_seq_to_key(  # noqa: C901
+            self: Any, sequence: str, alt: bool = False
+        ) -> Iterable[events.Event]:
             if (match := _kitty_re_extended_key.fullmatch(sequence)) is not None:
                 number, modifiers, event_type, end = match.groups()
                 if event_type == "2":
@@ -61,7 +65,7 @@ def apply_keyboard_patch() -> None:
 
             yield from _orig_seq_to_key(self, sequence, alt)
 
-        textual._xterm_parser.XTermParser._sequence_to_key_events = _patched_seq_to_key
+        textual._xterm_parser.XTermParser._sequence_to_key_events = _patched_seq_to_key  # type: ignore
 
-    except Exception:
+    except Exception:  # noqa: S110
         pass

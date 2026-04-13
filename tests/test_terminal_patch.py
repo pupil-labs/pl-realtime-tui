@@ -30,3 +30,10 @@ def test_kitty_keyboard_protocol_patch():
     assert isinstance(release_events[0], KeyUp)
     assert release_events[0].key == "a"
     assert release_events[0].character == "a"
+
+    # Simulate a Key Release without modifiers (event type 3) for the 'a' key
+    release_events_no_mods = list(parser._sequence_to_key_events("\x1b[97:3u"))
+    assert len(release_events_no_mods) == 1
+    assert isinstance(release_events_no_mods[0], KeyUp)
+    assert release_events_no_mods[0].key == "a"
+    assert release_events_no_mods[0].character == "a"

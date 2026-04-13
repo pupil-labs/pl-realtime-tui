@@ -43,7 +43,7 @@ from pupil_labs.realtime_tui.classes import DeviceClass
 from pupil_labs.realtime_tui.events import EVENT_MAP
 from pupil_labs.realtime_tui.modals import ManualIpModal, TimeSyncModal
 from pupil_labs.realtime_tui.settings import load_settings, save_settings
-from pupil_labs.realtime_tui.terminal_patch import apply_keyboard_patch
+from pupil_labs.realtime_tui.terminal_patch import KeyUp, apply_keyboard_patch
 from pupil_labs.realtime_tui.utils import (
     byte_size_to_gb,
     get_offset_age_color,
@@ -119,6 +119,7 @@ class Pupil(App):
         self.is_modern_terminal = (
             term in ("WezTerm", "ghostty", "kitty", "Alacritty") or "kitty" in term_env
         )
+        self._held_keys: set[str] = set()
 
     def compose(self) -> ComposeResult:
         yield Header(icon="◎", name="Pupil Labs Controller")
@@ -158,8 +159,9 @@ class Pupil(App):
 
     async def on_mount(self) -> None:
         if self.is_modern_terminal:
-            sys.stdout.write("\x1b[=2;1u")
-            sys.stdout.flush()
+            if hasattr(self, "_driver") and self._driver is not None:
+                self._driver.write("\x1b[>3u")
+                self._driver.flush()
         else:
             self.notify(
                 "Legacy terminal detected.\nUpgrade to WezTerm, Ghostty, Kitty or "
@@ -744,7 +746,11 @@ class Pupil(App):
 
     @work(exclusive=False)
     async def action_send_event(self, key: str) -> None:
-        if not getattr(self, "is_modern_terminal", False):
+        if getattr(self, "is_modern_terminal", True):
+            if key in self._held_keys:
+                return
+            self._held_keys.add(key)
+        else:
             now = time.time()
             time_since_last = now - self._last_action_time.get(key, 0.0)
             self._last_action_time[key] = now
@@ -775,6 +781,11 @@ class Pupil(App):
 
         if tasks:
             await asyncio.gather(*tasks)
+
+    def on_key_up(self, event: KeyUp) -> None:
+        self._held_keys.discard(event.key)
+        event.prevent_default()
+        event.stop()
 
     def action_toggle_edit(self) -> None:
         box = self.query_one("#edit_container")
