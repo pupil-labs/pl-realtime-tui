@@ -540,6 +540,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#prior-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prior Work
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#key-features" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -610,7 +621,7 @@
 <p><a href="https://pupil-labs.com/https://docs.pupil-labs.com/alpha-lab/"><img alt="pl-realtime-tui banner" src="https://raw.githubusercontent.com/pupil-labs/pl-realtime-tui/refs/heads/main/docs/assets/banner.png" /></a></p>
 <p>A TUI to monitor, control and send synchronized events to multiple eye-trackers.</p>
 <p><code>pl-realtime-tui</code> is a Python-based Text User Interface (TUI) application designed to monitor, control, and send synchronized events to multiple Pupil Labs eye-trackers (Neon/Pupil Invisible). It leverages the <code>pupil-labs-realtime-api</code> for low-latency communication with devices and <code>textual</code> for a responsive terminal-based dashboard.</p>
-<p>See the accompanying <a href="">Alpha Lab article</a> for more details and example use cases.</p>
+<p>See the accompanying <a href="https://docs.pupil-labs.com/alpha-lab/a-guide-to-multiperson-eye-tracking/">Alpha Lab article</a> for more details and example use cases.</p>
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>pip install pupil-labs-realtime-tui # or pip install git+https://github.com/pupil-labs/pl-realtime-tui.git
 </code></pre></div>
@@ -622,6 +633,12 @@
 <div class="highlight"><pre><span></span><code>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>pupil-labs-realtime-tui
 </code></pre></div>
 <p>From there, you would be able to invoke it with just <code>pl-realtime-tui</code> from anywhere in the terminal.</p>
+<h2 id="prior-work">Prior Work<a class="headerlink" href="#prior-work" title="Permanent link">&para;</a></h2>
+<p>We would like to also acknowledge the following published prior work using terminal-based interfaces for eye-tracking device management, concretely with our own devices:</p>
+<ul>
+<li><a href="https://pupil-labs.com/blog/neurolive-project">Neurolive</a></li>
+<li><a href="https://pupil-labs.com/blog/socialeyes">SocialEyes</a></li>
+</ul>
 <h2 id="key-features">Key Features<a class="headerlink" href="#key-features" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Discovery:</strong> Implements both standard mDNS discovery and a "Deep Scan" (ARP-based or brute-force subnet scan).</li>
@@ -649,6 +666,10 @@
 <li><strong>UI Styling:</strong> Uses Textual CSS (<code>.tcss</code>). Modifications to the UI look should be done in <code>src/pupil_labs/realtime_tui/css/main.tcss</code>.</li>
 <li><strong>Pre-commit:</strong> Pre-commit hooks are configured to run linting and formatting on every commit.</li>
 </ul>
+<blockquote>
+<p>[!IMPORTANT]
+Old terminals (e.g. macOS Terminal.app) do not support key-hold events, which can lead to performance issues when holding down event trigger keys. We attempt to bypass it by blocking new triggers during 0.3s, but key releases may not be detected. We recommend using modern terminals like WezTerm, Ghostty, Kitty, or Alacritty for the best experience. On those terminals, we will use Kitty protocol to detect key releases and support true key-hold events.</p>
+</blockquote>
 
 
 
