@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import asyncio
 import contextlib
+import os
 import socket
+import sys
 import time
 from collections import deque
 from datetime import datetime
@@ -41,12 +43,15 @@ from pupil_labs.realtime_tui.classes import DeviceClass
 from pupil_labs.realtime_tui.events import EVENT_MAP
 from pupil_labs.realtime_tui.modals import ManualIpModal, TimeSyncModal
 from pupil_labs.realtime_tui.settings import load_settings, save_settings
+from pupil_labs.realtime_tui.terminal_patch import KeyUp, apply_keyboard_patch
 from pupil_labs.realtime_tui.utils import (
     byte_size_to_gb,
     get_offset_age_color,
     make_battery_bar,
     make_signal_bar,
 )
+
+apply_keyboard_patch()
 
 
 class SettingsProvider(Provider):
@@ -107,6 +112,14 @@ class Pupil(App):
         self.sync_timer: Timer | None = None
         self.status_timer: Timer | None = None
         self.theme = "flexoki"
+        self._last_action_time: dict[str, float] = {}
+
+        term = os.environ.get("TERM_PROGRAM", "")
+        term_env = os.environ.get("TERM", "")
+        self.is_modern_terminal = (
+            term in ("WezTerm", "ghostty", "kitty", "Alacritty") or "kitty" in term_env
+        )
+        self._held_keys: set[str] = set()
 
     def compose(self) -> ComposeResult:
         yield Header(icon="◎", name="Pupil Labs Controller")
@@ -145,6 +158,20 @@ class Pupil(App):
         yield Footer()
 
     async def on_mount(self) -> None:
+        if self.is_modern_terminal:
+            if hasattr(self, "_driver") and self._driver is not None:
+                self._driver.write("\x1b[>3u")
+                self._driver.flush()
+        else:
+            self.notify(
+                "Legacy terminal detected.\nUpgrade to WezTerm, Ghostty, Kitty or "
+                "Alacritty for best key-hold support.\nNOTE: We will block repeated "
+                "key events (0.3s), but key releases may not be detected.",
+                title="Performance Warning",
+                severity="warning",
+                timeout=12.0,
+            )
+
         table = self.query_one(DataTable)
         table.cursor_type = "row"
         table.add_columns(
@@ -392,6 +419,10 @@ class Pupil(App):
                 await notifier.receive_updates_stop()
 
     async def on_unmount(self) -> None:
+        if getattr(self, "is_modern_terminal", False):
+            sys.stdout.write("\x1b[<u")
+            sys.stdout.flush()
+
         await self.shutdown_notifiers()
         for device_info in self.devices_info_list:
             if device_info.is_recording:
@@ -480,7 +511,6 @@ class Pupil(App):
 
     def update_device_table(self) -> None:
         table = self.query_one(DataTable)
-        table.clear()
         now: int | float = time.time()
 
         for dev in self.devices_info_list:
@@ -493,13 +523,13 @@ class Pupil(App):
 
             bat_bar: str = make_battery_bar(dev.battery_level)
 
-            offset_ms: int | float = dev.estimate.time_offset_ms.mean
+            offset_ms: float = dev.clock_offset_ns / 1_000_000
             rtt_ms: int | float = dev.estimate.roundtrip_duration_ms.mean
             signal_bar: str = make_signal_bar(rtt_ms)
 
             age: int | float = now - dev.last_offset_update_time
             age_color: str = get_offset_age_color(age)
-            offset_str = f"{offset_ms:+.1f}ms ([{age_color}]{age:.0f}s ago[/])"
+            offset_str = f"{offset_ms:+.2f}ms ([{age_color}]{age:.0f}s ago[/])"
 
             if dev.rec_duration_ns > 0:
                 total_seconds: int = dev.rec_duration_ns // 1_000_000_000
@@ -537,7 +567,11 @@ class Pupil(App):
                 row = [f"[dim]{c}[/dim]" if isinstance(c, str) else c for c in row]
 
             if dev.address in table.rows:
-                pass
+                col_keys = list(table.columns.keys())
+                for col_index, val in enumerate(row):
+                    table.update_cell(
+                        dev.address, col_keys[col_index], val, update_width=True
+                    )
             else:
                 table.add_row(*row, key=dev.address)
 
@@ -689,8 +723,41 @@ class Pupil(App):
 
         self.update_device_table()
 
+    async def _send_event_to_device_with_retry(
+        self, dev: DeviceClass, event_name: str, ts: int
+    ) -> None:
+        dev.last_event_name = event_name
+        dev.last_event_time = time.time()
+        dev.last_event_pupil_ts = ts / 1e9
+
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                await dev.device.send_event(event_name, event_timestamp_unix_ns=ts)
+                break
+            except Exception as e:
+                if attempt == max_retries - 1:
+                    self.log_message(
+                        f"[#$error]Failed to send event to "
+                        f"{dev.phone_name} after {max_retries} attempts: {e}[/]"
+                    )
+                else:
+                    await asyncio.sleep(0.5)
+
     @work(exclusive=False)
     async def action_send_event(self, key: str) -> None:
+        if getattr(self, "is_modern_terminal", True):
+            if key in self._held_keys:
+                return
+            self._held_keys.add(key)
+        else:
+            now = time.time()
+            time_since_last = now - self._last_action_time.get(key, 0.0)
+            self._last_action_time[key] = now
+
+            if time_since_last < 0.3:
+                return
+
         if key not in EVENT_MAP:
             return
         event_name = EVENT_MAP[key]
@@ -705,34 +772,20 @@ class Pupil(App):
         else:
             targets = self.devices_info_list
 
-        async def send_to_device(dev: DeviceClass, ts: int) -> None:
-            dev.last_event_name = event_name
-            dev.last_event_time = time.time()
-            dev.last_event_pupil_ts = ts / 1e9
-
-            max_retries = 3
-            for attempt in range(max_retries):
-                try:
-                    await dev.device.send_event(event_name, event_timestamp_unix_ns=ts)
-                    break
-                except Exception as e:
-                    if attempt == max_retries - 1:
-                        self.log_message(
-                            f"[#$error]Failed to send event to "
-                            f"{dev.phone_name} after {max_retries} attempts: {e}[/]"
-                        )
-                    else:
-                        await asyncio.sleep(0.5)
-
         tasks = []
         for dev in targets:
             if not dev.is_recording or not dev.is_online:
                 continue
             ts = now_ns - dev.clock_offset_ns
-            tasks.append(send_to_device(dev, ts))
+            tasks.append(self._send_event_to_device_with_retry(dev, event_name, ts))
 
         if tasks:
             await asyncio.gather(*tasks)
+
+    def on_key_up(self, event: KeyUp) -> None:
+        self._held_keys.discard(event.key)
+        event.prevent_default()
+        event.stop()
 
     def action_toggle_edit(self) -> None:
         box = self.query_one("#edit_container")
@@ -830,9 +883,13 @@ class Pupil(App):
 
     @work(exclusive=True)
     async def update_all_offsets(self) -> None:
-        self.log_message("Syncing clocks...")
         tasks = [
             self.update_single_device_offset(dev) for dev in self.devices_info_list
         ]
         if tasks:
-            await asyncio.gather(*tasks)
+            self.log_message("Syncing clocks...")
+            results = await asyncio.gather(*tasks, return_exceptions=True)
+            for i, res in enumerate(results):
+                if isinstance(res, Exception):
+                    self.log_message(f"Critical error in task {i}: {res}")
+            self.update_device_table()
