@@ -523,13 +523,13 @@ class Pupil(App):
 
             bat_bar: str = make_battery_bar(dev.battery_level)
 
-            offset_ms: int | float = dev.estimate.time_offset_ms.mean
+            offset_ms: float = dev.clock_offset_ns / 1_000_000
             rtt_ms: int | float = dev.estimate.roundtrip_duration_ms.mean
             signal_bar: str = make_signal_bar(rtt_ms)
 
             age: int | float = now - dev.last_offset_update_time
             age_color: str = get_offset_age_color(age)
-            offset_str = f"{offset_ms:+.1f}ms ([{age_color}]{age:.0f}s ago[/])"
+            offset_str = f"{offset_ms:+.2f}ms ([{age_color}]{age:.0f}s ago[/])"
 
             if dev.rec_duration_ns > 0:
                 total_seconds: int = dev.rec_duration_ns // 1_000_000_000
@@ -883,9 +883,13 @@ class Pupil(App):
 
     @work(exclusive=True)
     async def update_all_offsets(self) -> None:
-        self.log_message("Syncing clocks...")
         tasks = [
             self.update_single_device_offset(dev) for dev in self.devices_info_list
         ]
         if tasks:
-            await asyncio.gather(*tasks)
+            self.log_message("Syncing clocks...")
+            results = await asyncio.gather(*tasks, return_exceptions=True)
+            for i, res in enumerate(results):
+                if isinstance(res, Exception):
+                    self.log_message(f"Critical error in task {i}: {res}")
+            self.update_device_table()
