@@ -625,14 +625,18 @@
 <h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>pip install pupil-labs-realtime-tui # or pip install git+https://github.com/pupil-labs/pl-realtime-tui.git
 </code></pre></div>
-<h2 id="run-it">Run It<a class="headerlink" href="#run-it" title="Permanent link">&para;</a></h2>
-<p>if you have <a href="https://github.com/astral-sh/uv">Astral's UV</a> installed. You can run it directly with:</p>
+<p>If you have <a href="https://github.com/astral-sh/uv">UV</a> installed. You can also run it as a one time:</p>
 <div class="highlight"><pre><span></span><code>uvx<span class="w"> </span>pupil-labs-realtime-tui
 </code></pre></div>
-<p>If you want to run more than one time, you may want to install it as a tool.</p>
+<p>or, if you want to run more than one time, you can install it as a tool.</p>
 <div class="highlight"><pre><span></span><code>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>pupil-labs-realtime-tui
 </code></pre></div>
-<p>From there, you would be able to invoke it with just <code>pl-realtime-tui</code> from anywhere in the terminal.</p>
+<h2 id="run-it">Run It<a class="headerlink" href="#run-it" title="Permanent link">&para;</a></h2>
+<p>From there, you would be able to invoke it with just <code>pl-realtime-tui</code> from anywhere in the terminal, check out the <code>-h</code> help flag for other parameters.</p>
+<blockquote>
+<p>[!IMPORTANT]
+Old terminals (e.g. macOS Terminal.app) do not support key-hold events, which can lead to performance issues when holding down event trigger keys. We attempt to bypass it by blocking new triggers during 0.3s, but key releases may not be detected. We recommend using modern terminals like WezTerm, Ghostty, Kitty, or Alacritty for the best experience. On those terminals, we will use Kitty protocol to detect key releases and support true key-hold events.</p>
+</blockquote>
 <h2 id="prior-work">Prior Work<a class="headerlink" href="#prior-work" title="Permanent link">&para;</a></h2>
 <p>We would like to also acknowledge the following published prior work using terminal-based interfaces for eye-tracking device management, concretely with our own devices:</p>
 <ul>
@@ -654,7 +658,6 @@
 <li><strong>TUI Framework:</strong> <a href="https://github.com/Textualize/textual">Textual</a></li>
 <li><strong>CLI Framework:</strong> <a href="https://github.com/tiangolo/typer">Typer</a></li>
 <li><strong>API:</strong> <a href="https://github.com/pupil-labs/realtime-python-api">pupil-labs-realtime-api</a></li>
-<li><strong>Package Management:</strong> <a href="https://github.com/astral-sh/uv">uv</a></li>
 <li><strong>Networking:</strong> <code>aiohttp</code> for HTTP API calls, <code>scapy</code> for deep network scans (ARP).</li>
 </ul>
 <h2 id="development-conventions">Development Conventions<a class="headerlink" href="#development-conventions" title="Permanent link">&para;</a></h2>
@@ -666,10 +669,6 @@
 <li><strong>UI Styling:</strong> Uses Textual CSS (<code>.tcss</code>). Modifications to the UI look should be done in <code>src/pupil_labs/realtime_tui/css/main.tcss</code>.</li>
 <li><strong>Pre-commit:</strong> Pre-commit hooks are configured to run linting and formatting on every commit.</li>
 </ul>
-<blockquote>
-<p>[!IMPORTANT]
-Old terminals (e.g. macOS Terminal.app) do not support key-hold events, which can lead to performance issues when holding down event trigger keys. We attempt to bypass it by blocking new triggers during 0.3s, but key releases may not be detected. We recommend using modern terminals like WezTerm, Ghostty, Kitty, or Alacritty for the best experience. On those terminals, we will use Kitty protocol to detect key releases and support true key-hold events.</p>
-</blockquote>
 
 
 
