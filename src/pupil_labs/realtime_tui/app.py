@@ -430,6 +430,8 @@ class Pupil(App):
                     await device_info.device.recording_stop_and_save()
             await device_info.device.close()
 
+        await asyncio.sleep(0.1)
+
     def log_message(self, message: str) -> None:
         try:
             log = self.query_one(RichLog)
