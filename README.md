@@ -22,21 +22,24 @@ See the accompanying [Alpha Lab article](https://docs.pupil-labs.com/alpha-lab/a
 pip install pupil-labs-realtime-tui # or pip install git+https://github.com/pupil-labs/pl-realtime-tui.git
 ```
 
-## Run It
-
-if you have [Astral's UV](https://github.com/astral-sh/uv) installed. You can run it directly with:
+If you have [UV](https://github.com/astral-sh/uv) installed. You can also run it as a one time:
 
 ```bash
 uvx pupil-labs-realtime-tui
 ```
 
-If you want to run more than one time, you may want to install it as a tool.
+or, if you want to run more than one time, you can install it as a tool.
 
 ```bash
 uv tool install pupil-labs-realtime-tui
 ```
 
-From there, you would be able to invoke it with just `pl-realtime-tui` from anywhere in the terminal.
+## Run It
+
+From there, you would be able to invoke it with just `pl-realtime-tui` from anywhere in the terminal, check out the `-h` help flag for other parameters.
+
+> [!IMPORTANT]
+> Old terminals (e.g. macOS Terminal.app) do not support key-hold events, which can lead to performance issues when holding down event trigger keys. We attempt to bypass it by blocking new triggers during 0.3s, but key releases may not be detected. We recommend using modern terminals like WezTerm, Ghostty, Kitty, or Alacritty for the best experience. On those terminals, we will use Kitty protocol to detect key releases and support true key-hold events.
 
 ## Prior Work
 
@@ -60,7 +63,6 @@ We would like to also acknowledge the following published prior work using termi
 - **TUI Framework:** [Textual](https://github.com/Textualize/textual)
 - **CLI Framework:** [Typer](https://github.com/tiangolo/typer)
 - **API:** [pupil-labs-realtime-api](https://github.com/pupil-labs/realtime-python-api)
-- **Package Management:** [uv](https://github.com/astral-sh/uv)
 - **Networking:** `aiohttp` for HTTP API calls, `scapy` for deep network scans (ARP).
 
 ## Development Conventions
@@ -71,6 +73,3 @@ We would like to also acknowledge the following published prior work using termi
 - **Time Synchronization:** Uses `TimeOffsetEstimator` from the realtime API to calculate clock offsets between the host and eye-trackers, ensuring events are accurately timestamped in the device's clock domain.
 - **UI Styling:** Uses Textual CSS (`.tcss`). Modifications to the UI look should be done in `src/pupil_labs/realtime_tui/css/main.tcss`.
 - **Pre-commit:** Pre-commit hooks are configured to run linting and formatting on every commit.
-
-> [!IMPORTANT]
-> Old terminals (e.g. macOS Terminal.app) do not support key-hold events, which can lead to performance issues when holding down event trigger keys. We attempt to bypass it by blocking new triggers during 0.3s, but key releases may not be detected. We recommend using modern terminals like WezTerm, Ghostty, Kitty, or Alacritty for the best experience. On those terminals, we will use Kitty protocol to detect key releases and support true key-hold events.
