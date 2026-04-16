@@ -41,12 +41,12 @@ From there, you would be able to invoke it with just `pl-realtime-tui` from anyw
 > [!IMPORTANT]
 > Old terminals (e.g. macOS Terminal.app) do not support key-hold events, which can lead to performance issues when holding down event trigger keys. We attempt to bypass it by blocking new triggers during 0.3s, but key releases may not be detected. We recommend using modern terminals like WezTerm, Ghostty, Kitty, or Alacritty for the best experience. On those terminals, we will use Kitty protocol to detect key releases and support true key-hold events.
 
-## Prior Work
+## Related Work
 
-We would like to also acknowledge the following published prior work using terminal-based interfaces for eye-tracking device management, concretely with our own devices:
+We would like to also acknowledge the following published work using terminal-based interfaces for eye-tracking device management, concretely with our own devices:
 
 - [Neurolive](https://pupil-labs.com/blog/neurolive-project)
-- [SocialEyes](https://pupil-labs.com/blog/socialeyes)
+- [SocialEyes](https://github.com/beatlab-mcmaster/SocialEyes)
 
 ## Key Features
 
