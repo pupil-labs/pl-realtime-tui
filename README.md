@@ -25,7 +25,7 @@ pip install pupil-labs-realtime-tui # or pip install git+https://github.com/pupi
 If you have [UV](https://github.com/astral-sh/uv) installed. You can also run it as a one time:
 
 ```bash
-uvx pupil-labs-realtime-tui
+uvx --from pupil-labs-realtime-tui pl-realtime-tui
 ```
 
 or, if you want to run more than one time, you can install it as a tool.
